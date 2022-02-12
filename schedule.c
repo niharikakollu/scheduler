@@ -38,9 +38,9 @@ struct localstruct SPprog_tab;
 	for( i = 0; i < datalen; i ++ ){
 	printf("entered to for loop1\n");
 	lua_rawgeti( L, 2, i + 1 );
-     SPprog_tab.zone_id[i]=lua_tointeger (L,1);
+     SPprog_tab.zone_id[i]=lua_tointeger (L,-1);
      printf("%d\t",SPprog_tab.zone_id[i]);
-      lua_pop (L, 2);
+      lua_pop (L, 1);
     }
  }
  else
