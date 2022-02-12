@@ -31,10 +31,12 @@ struct localstruct SPprog_tab;
  if( lua_istable( L,1)){
  lua_getfield(L,1,"zone_id");
  if (lua_type(L, -1)==LUA_TTABLE){
-    printf("failed");
+    printf("failed\n");
     datalen = lua_objlen(L,1);
+    printf("size of datalen1:%d\n",datalen);
     SPprog_tab.zone_id=(int*)calloc(datalen, sizeof(int));
 	for( i = 0; i < datalen; i ++ ){
+		printf("entered to for loop1\n");
 		lua_rawgeti( L, 1, i + 1 );
      SPprog_tab.zone_id[i]=lua_tointeger (L, -1);
      printf("%d\t",SPprog_tab.zone_id[i]);
@@ -42,13 +44,15 @@ struct localstruct SPprog_tab;
     }
  }
  else
-	 luaL_error (L, "Not an array");
+	 luaL_error (L, "Not an array 1");
  lua_getfield(L,1,"duration_mins");
  if (lua_type(L, -1) == LUA_TTABLE){
      datalen = lua_objlen(L,1);
     printf("failed1\n");
+    printf("size of datalen2:%d\n",datalen);
     SPprog_tab.duration_mins=(int*)calloc(datalen, sizeof(int));
     for( i = 0; i < datalen; i ++ ){
+	    printf("entered into for loop 2");
 		lua_rawgeti( L, 1, i + 1 );
      SPprog_tab.duration_mins[i]=lua_tointeger (L, -1);
      printf("%d\t",SPprog_tab.duration_mins[i]);
@@ -56,22 +60,24 @@ struct localstruct SPprog_tab;
     }
  }
  else
-   luaL_error (L, "Not an array");
+   luaL_error (L, "Not an array 2");
  lua_getfield(L,1,"seq_num");
  if (lua_type(L, -1) == LUA_TTABLE){
    datalen = lua_objlen( L,1 );
    printf("failed2\n");
+printf("size of datalen2:%d\n",datalen);
    SPprog_tab.seq_num=(int*)calloc(datalen, sizeof(int));
    int i=0;
   for( i = 0; i < datalen; i ++ ){
-		lua_rawgeti( L, 1, i + 1 );
+	  printf("entered into loop3");
+	lua_rawgeti( L, 1, i + 1 );
      SPprog_tab.seq_num[i]=lua_tointeger (L, -1);
      printf("%d\t",SPprog_tab.seq_num[i]);
       lua_pop (L, 2);
   }
  }
  else
-   luaL_error (L, "Not an array"); 
+   luaL_error (L, "Not an array 3"); 
  }
  return 0;
 }
