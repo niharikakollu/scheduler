@@ -25,7 +25,7 @@ void inline structure_ToTable(lua_State *L, struct task_table *test )
   ADD_TABLE_ITEM (L, "status", test->status);
 }
 static int teal_scheduler_table(lua_State *L){
- int i=0;
+ int i=0,len=0;
 size_t datalen;
 struct localstruct SPprog_tab;
  if( lua_istable( L,1)){
@@ -33,6 +33,7 @@ struct localstruct SPprog_tab;
  if (lua_type(L, -1)==LUA_TTABLE){
     printf("failed\n");
     datalen = lua_objlen(L,2);
+	 len=datalen;
     printf("size of datalen1:%d\n",datalen);
     SPprog_tab.zone_id=(int*)calloc(datalen, sizeof(int));
 	for( i = 0; i < datalen; i ++ ){
@@ -82,19 +83,19 @@ printf("size of datalen2:%d\n",datalen);
  lua_newtable(L);
  lua_pushliteral(L,"zone_id");
  lua_newtable(L);
- for(int i=0;i<datalen;i++){
+ for(int i=0;i<len;i++){
    lua_pushnumber( L, (lua_Number)i+1);
    lua_rawseti( L,-2,i+1);
   }
  lua_pushliteral(L,"duration_mins");
  lua_newtable(L);
- for(int i=0;i<datalen;i++){
+ for(int i=0;i<len;i++){
    lua_pushnumber( L, (lua_Number)i+2);
    lua_rawseti( L,-3,i+1);
   }
  lua_pushliteral(L,"seq");
  lua_newtable(L);
- for(int i=0;i<datalen;i++){
+ for(int i=0;i<len;i++){
    lua_pushnumber( L, (lua_Number)i+3);
    lua_rawseti( L,-4,i+1);
   }
