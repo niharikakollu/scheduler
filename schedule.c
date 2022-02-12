@@ -83,19 +83,19 @@ printf("size of datalen2:%d\n",datalen);
  lua_pushliteral(L,"zone_id");
  lua_newtable(L);
  for(int i=0;i<datalen;i++){
-   lua_pushnumber( L, (lua_Number) SPprog_tab.zone_id[i]);
+   lua_pushnumber( L, (lua_Number)i+1);
    lua_rawseti( L,-2,i+1);
   }
  lua_pushliteral(L,"duration_mins");
  lua_newtable(L);
  for(int i=0;i<datalen;i++){
-   lua_pushnumber( L, (lua_Number)SPprog_tab.duration_mins[i]);
+   lua_pushnumber( L, (lua_Number)i+2);
    lua_rawseti( L,-3,i+1);
   }
  lua_pushliteral(L,"seq");
  lua_newtable(L);
  for(int i=0;i<datalen;i++){
-   lua_pushnumber( L, (lua_Number)SPprog_tab.seq_num[i]);
+   lua_pushnumber( L, (lua_Number)i+3);
    lua_rawseti( L,-4,i+1);
   }
 lua_settable(L,-2);
