@@ -32,12 +32,12 @@ struct localstruct SPprog_tab;
  lua_getfield(L,1,"zone_id");
  if (lua_type(L, -1)==LUA_TTABLE){
     printf("failed\n");
-    datalen = lua_objlen(L,1);
+    datalen = lua_objlen(L,2);
     printf("size of datalen1:%d\n",datalen);
     SPprog_tab.zone_id=(int*)calloc(datalen, sizeof(int));
 	for( i = 0; i < datalen; i ++ ){
 		printf("entered to for loop1\n");
-		lua_rawgeti( L, 1, i + 1 );
+		lua_rawgeti( L, 2, i + 1 );
      SPprog_tab.zone_id[i]=lua_tointeger (L, -1);
      printf("%d\t",SPprog_tab.zone_id[i]);
       lua_pop (L, 2);
