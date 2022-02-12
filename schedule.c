@@ -79,7 +79,29 @@ printf("size of datalen2:%d\n",datalen);
  else
    luaL_error (L, "Not an array 3"); 
  }
- return 0;
+ lua_newtable(L);
+ lua_pushliteral(L,"zone_id");
+ lua_newtable(L);
+ for(int i=0;i<datalen;i++){
+   lua_pushnumber( L, (lua_Number) SPprog_tab.zone_id[i]);
+   lua_rawseti( L,-2,i+1);
+  }
+ lua_pushliteral(L,"duration_mins");
+ lua_newtable(L);
+ for(int i=0;i<datalen;i++){
+   lua_pushnumber( L, (lua_Number)dur[i]);
+   lua_rawseti( L,-3,i+1);
+  }
+ lua_pushliteral(L,"seq");
+ lua_newtable(L);
+ for(int i=0;i<datalen;i++){
+   lua_pushnumber( L, (lua_Number)zon[i]);
+   lua_rawseti( L,-4,i+1);
+  }
+lua_settable(L,-2);
+lua_settable(L,-3);
+lua_settable(L,-4);
+ return 1;
 }
 
 
