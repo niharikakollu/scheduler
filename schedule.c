@@ -85,9 +85,9 @@ printf("size of datalen2:%d\n",datalen);
  lua_pushstring(L,"zone_id");
  lua_createtable(L, 0, len);
  for(int i=0;i<len;i++){
-	 printf("in loop1\n");
-   lua_pushnumber( L, (lua_Number)(i+1));
-  lua_setfield(L, -2, i+1);
+  printf("in loop1\n");
+  lua_pushnumber( L, (lua_Number)(i+1));
+  lua_rawseti(L, -2, (lua_Number)i+1);
   }
 lua_settable( L, -3 );
   lua_pushstring(L,"duration_mins");
