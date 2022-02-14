@@ -82,23 +82,26 @@ printf("size of datalen2:%d\n",datalen);
  }
  printf("length of the table is:%d\n",len);
  lua_createtable(L, 3, 0);
- lua_pushliteral(L,"zone_id");
+ lua_pushstring(L,"zone_id");
  lua_createtable(L, 0, len);
  for(int i=0;i<len;i++){
+	 printf("in loop1\n");
    lua_pushnumber( L, (lua_Number)(i+1));
   lua_setfield(L, -2, i+1);
   }
 lua_settable( L, -3 );
- lua_pushliteral(L,"duration_mins");
+  lua_pushstring(L,"duration_mins");
  lua_createtable(L, 0, len);
  for(int i=0;i<len;i++){
+	 printf("in loop2\n");
    lua_pushnumber( L, (lua_Number)(i+2));
    lua_setfield(L, -2, i+1);
   }
 lua_settable( L, -3 );
- lua_pushliteral(L,"seq");
+  lua_pushstring(L,"seq");
 lua_createtable(L, 0, len);
  for(int i=0;i<len;i++){
+	 printf("in loop3\n");
    lua_pushnumber( L, (lua_Number)(i+3));
   lua_setfield(L, -2, i+1);
   }
