@@ -104,7 +104,7 @@ lua_createtable(L, 0, len);
 lua_settable( L, -3 );
  return 1;
 }
-static int l_push_multidim_table(lua_State *l)
+static int l_push_multidim_table(lua_State *L)
 {
     /* Creates parent table of size 2 array elements: */
     lua_createtable(L, 2, 0);
