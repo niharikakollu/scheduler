@@ -104,7 +104,57 @@ lua_createtable(L, 0, len);
 lua_settable( L, -3 );
  return 1;
 }
+static int l_push_multidim_table(lua_State *l)
+{
+    /* Creates parent table of size 2 array elements: */
+    lua_createtable(L, 2, 0);
 
+    /* Puts key of the first child table on-top of Lua VM stack: */
+    lua_pushnumber(L, 1);
+
+    /*Creates first child table of size 3 non-array elements: */
+    lua_createtable(L, 0, 3);
+
+    /* Fills the first child table: */
+    lua_pushnumber(L, 1);
+    lua_setfield(L, -2, "field1");
+
+    lua_pushnumber(L, 2);
+    /* setfield() pops the value from Lua VM stack. */
+    lua_setfield(L, -2, "field2");
+
+    lua_pushnumber(L, 3);
+    lua_setfield(L, -2, "field3");
+
+    /* Remember, child table is on-top of the stack.
+     * lua_settable() pops key, value pair from Lua VM stack. */
+    lua_settable(L, -3);
+
+    /* Pushes they key value for the second child table: */
+    lua_pushnumber(L, 2);
+
+    /*Creates second child table of size  3 non-array elements: */
+    lua_createtable(L, 0, 3);
+
+    /* Fills the second child table: */
+    lua_pushnumber(L, 10);
+    lua_setfield(L, -2, "field1");
+
+    lua_pushnumber(L, 20);
+    lua_setfield(L, -2, "field2");
+
+    lua_pushnumber(L, 30);
+    lua_setfield(L, -2, "field3");
+
+    /* Remember, child table is still on-top of the stack.
+     * lua_settable pops the key, value pair from Lua VM stack
+     * And puts child table into the parent. */
+    lua_settable(L, -3);
+
+    /* Returns number of output tables:
+     * (1 multidimentional)            */
+    return 1;
+}
 
 // decimal to binary module
 static int decimal_binary(lua_State* L){  
@@ -162,7 +212,8 @@ LROT_BEGIN(module)
 LROT_FUNCENTRY(larr,load_arr)
 LROT_FUNCENTRY(tkey,table_key)
 LROT_FUNCENTRY(dectobin,decimal_binary)
-  LROT_FUNCENTRY(schedule_table,teal_scheduler_table)
+LROT_FUNCENTRY(rettab,l_push_multidim_table)
+LROT_FUNCENTRY(schedule_table,teal_scheduler_table)
 LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
