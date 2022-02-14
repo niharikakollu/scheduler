@@ -95,7 +95,7 @@ lua_settable( L, -3 );
  for(int i=0;i<len;i++){
 	 printf("in loop2\n");
    lua_pushnumber( L, (lua_Number)(i+2));
-   lua_setfield(L, -2, i+1);
+  lua_rawseti(L, -2, (lua_Number)i+1);
   }
 lua_settable( L, -3 );
   lua_pushstring(L,"seq");
@@ -103,7 +103,7 @@ lua_createtable(L, 0, len);
  for(int i=0;i<len;i++){
 	 printf("in loop3\n");
    lua_pushnumber( L, (lua_Number)(i+3));
-  lua_setfield(L, -2, i+1);
+  lua_rawseti(L, -2, (lua_Number)i+1);
   }
 lua_settable( L, -3 );
  return 1;
