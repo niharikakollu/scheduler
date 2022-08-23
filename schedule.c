@@ -137,32 +137,43 @@ static int table_key(lua_State* L){
   structure_ToTable(L,&test);
     return 1;
 }
- static int load_arr(lua_State* L){
-  size_t datalen, i;
+ static int calib_alg(lua_State* L){
+  size_t i;
+  float org[3],sort[3],comp1,comp2,a;
+  int pos;
    lua_newtable( L ); 
      if( lua_istable( L,1)){
-     datalen = lua_objlen( L,1 );
-      for( i = 0; i < datalen; i ++ ){
-      lua_rawgeti( L, 1, i + 1 );
-    if(lua_type(L,-1)== LUA_TNUMBER){ 
-    lua_pushnumber(L, (lua_Number)luaL_checknumber(L,-1));
+   for( i = 0; i < 3; i ++ )
+	org[i]=lua_rawgeti( L, 1, i + 1 );	
+      comp1=lua_rawgeti( L, 2, 2 )-lua_rawgeti( L, 2, 1 );
+        comp2=lua_rawgeti( L, 2, 3 )-lua_rawgeti( L, 2, 2 );
+    if (comp1>comp2)
+        a=lua_rawgeti( L, 2, 2 );
+    else if(comp2>comp1)
+        a=lua_rawgeti( L, 2, 3 );
+    else if(comp1!=0 && comp2!=0)
+           a=lua_rawgeti( L, 2, 3);
+    for (int i = 0; i <3; ++i)
+    if(org[i]==a)
+    {
+      org[i]=0;
+      pos=i;
+    }
+    for(int i=pos;i>0;i--)
+    org[i]=org[i-1];
+    org[0]=(org[2]+org[1])/2.0;
+    lua_pushnumber(L, (lua_Number)org[i]);
      lua_pop( L, 1 );
      lua_rawseti( L,-2, i + 1 );
     }
-    else if(lua_type(L,-1)== LUA_TSTRING){
-     lua_pushstring(L,luaL_checkstring(L,-1));
-     lua_pop( L, 1 );
-     lua_rawseti( L,-2, i + 1 );
-    }
-      }
-     } 
+	 }
    return 1;
- }
+}
 LROT_BEGIN(arith_metatable)
 LROT_END(arith_metatable, NULL, 0)
 
 LROT_BEGIN(module)
-LROT_FUNCENTRY(larr,load_arr)
+LROT_FUNCENTRY(calibration_algorithm,calib_alg)
 LROT_FUNCENTRY(tkey,table_key)
 LROT_FUNCENTRY(dectobin,decimal_binary)
 LROT_FUNCENTRY(schedule_table,teal_scheduler_table)
