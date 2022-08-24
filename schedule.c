@@ -22,8 +22,8 @@ static int decimal_binary(lua_State* L){
 }
 static int calib_alg(lua_State* L){
   size_t i;
-  float org[3],sort[3],comp1,comp2,a;
-  int pos;
+  float org[3],sort[3],comp1,comp2,a=0.0;
+  int pos=0;
   if( lua_istable( L,1)){
     for( i = 0; i < 3; i ++ ){
       lua_rawgeti( L, 1, i + 1 );
