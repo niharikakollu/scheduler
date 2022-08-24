@@ -29,13 +29,15 @@ static int decimal_binary(lua_State* L){
    for( i = 0; i < 3; i ++ )
      lua_rawgeti( L, 1, i + 1 );
     if(lua_type(L,-1)== LUA_TNUMBER)
-          org[i]=lua_pop( L, 1 );
-     }
+          org[i]=(lua_Number)luaL_checknumber(L,-1)
+       lua_pop( L, 1 );
+}
   if( lua_istable( L,2)){
    for( i = 0; i < 3; i ++ )
      lua_rawgeti( L, 2, i + 1 );
     if(lua_type(L,-1)== LUA_TNUMBER)
-          sort[i]=lua_pop( L, 1 );
+          sort[i]=(lua_Number)luaL_checknumber(L,-1)
+      lua_pop( L, 1 );
      }
      comp1=sort[1]-sort[0];
      comp2=sort[2]-sort[1];
