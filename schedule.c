@@ -29,8 +29,8 @@ static int decimal_binary(lua_State* L){
    for( i = 0; i < 3; i ++ )
      lua_rawgeti( L, 1, i + 1 );
     if(lua_type(L,-1)== LUA_TNUMBER)
-      lua_pop( L, -1 );
       org[i]=(lua_Number)luaL_checknumber(L,-1);
+        lua_pop( L, 1 );
 }
   if( lua_istable( L,2)){
    for( i = 0; i < 3; i ++ )
