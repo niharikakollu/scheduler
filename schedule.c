@@ -5,7 +5,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<math.h>
-
+static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 // decimal to binary module
 static int decimal_binary(lua_State* L){  
   int dec_num=luaL_checknumber(L,1);
