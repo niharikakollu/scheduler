@@ -20,26 +20,27 @@ static int decimal_binary(lua_State* L){
   lua_pushnumber(L, (lua_Number)bin_num);
     return 1;
 }
-
- static int calib_alg(lua_State* L){
+static int calib_alg(lua_State* L){
   size_t i;
   float org[3],sort[3],comp1,comp2,a;
   int pos;
-     if( lua_istable( L,1)){
-   for( i = 0; i < 3; i ++ ){
-     lua_rawgeti( L, 1, i + 1 );
-    if(lua_type(L,-1)== LUA_TNUMBER)
-      org[i]=(lua_Number)luaL_checknumber(L,-1);
+  if( lua_istable( L,1)){
+    for( i = 0; i < 3; i ++ ){
+      lua_rawgeti( L, 1, i + 1 );
+      if(lua_type(L,-1)== LUA_TNUMBER){
+        org[i]=(lua_Number)luaL_checknumber(L,-1);
         lua_pop( L, 1 );
-}
-     }
+      }
+    }
+  }
   if( lua_istable( L,2)){
-   for( i = 0; i < 3; i ++ ){
+    for( i = 0; i < 3; i ++ ){
      lua_rawgeti( L, 2, i + 1 );
-    if(lua_type(L,-1)== LUA_TNUMBER)
-     sort[i]=(lua_Number)luaL_checknumber(L,-1);
-      lua_pop( L, 1 );
+     if(lua_type(L,-1)== LUA_TNUMBER){
+        sort[i]=(lua_Number)luaL_checknumber(L,-1);
+        lua_pop( L, 1 );
      }
+  }
   }
      comp1=sort[1]-sort[0];
      comp2=sort[2]-sort[1];
@@ -49,7 +50,7 @@ static int decimal_binary(lua_State* L){
         a=sort[2];
     else if(comp1!=0 && comp2!=0)
            a=sort[2];
-    for (int i = 0; i <3; ++i)
+    for (int i = 0; i <3;i++)
     if(org[i]==a)
     {
       org[i]=0;
@@ -58,7 +59,7 @@ static int decimal_binary(lua_State* L){
     for(int i=pos;i>0;i--)
     org[i]=org[i-1];
     org[0]=(org[2]+org[1])/2.0;
-   for (int i = 0; i <3; ++i){
+   for (int i = 0; i <3;i++){
     lua_pushnumber(L, (lua_Number)org[i]);
      //lua_pop( L, 1 );
      lua_rawseti( L,-2, i + 1 );
