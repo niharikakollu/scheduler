@@ -5,6 +5,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<math.h>
+#include "driver/gpio.h"
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 // decimal to binary module
 static int decimal_binary(lua_State* L){  
@@ -20,6 +21,15 @@ static int decimal_binary(lua_State* L){
   lua_pushnumber(L, (lua_Number)bin_num);
     return 1;
 }
+static int gpio_reading (lua_State *L)
+{
+  int gpio = luaL_checkint (L, 1);
+  if (!GPIO_IS_VALID_GPIO(gpio))
+    return check_err (L, ESP_ERR_INVALID_ARG);
+  lua_pushinteger (L, gpio_get_level (gpio));
+  return 1;
+}
+
 static int calib_alg(lua_State* L){
   size_t i;
   float org[3],sort[3],comp1,comp2,a=0.0;
@@ -72,6 +82,7 @@ LROT_END(arith_metatable, NULL, 0)
 LROT_BEGIN(module)
 LROT_FUNCENTRY(calibration_algorithm,calib_alg)
 LROT_FUNCENTRY(dectobin,decimal_binary)
+LROT_FUNCENTRY(gpio_read,gpio_reading)
 LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
