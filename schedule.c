@@ -7,6 +7,17 @@
 #include<math.h>
 #include "driver/gpio.h"
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
+static int check_err (lua_State *L, esp_err_t err)
+{
+  switch (err)
+  {
+    case ESP_ERR_INVALID_ARG: luaL_error (L, "invalid argument");
+    case ESP_ERR_INVALID_STATE: luaL_error (L, "internal logic error");
+    case ESP_OK: break;
+  }
+  return 0;
+}
+
 // decimal to binary module
 static int decimal_binary(lua_State* L){  
   int dec_num=luaL_checknumber(L,1);
