@@ -27,18 +27,24 @@ static int decimal_binary(lua_State* L){
   int pos;
      if( lua_istable( L,1)){
    for( i = 0; i < 3; i ++ )
-	org[i]=lua_rawgeti( L, 1, i + 1 );
+     lua_rawgeti( L, 1, i + 1 );
+    if(lua_type(L,-1)== LUA_TNUMBER)
+          org[i]=lua_pop( L, 1 );
      }
-   if( lua_istable( L,2)){
-     comp1=lua_rawgeti( L, 2, 2 )-lua_rawgeti( L, 2, 1 );
-        comp2=lua_rawgeti( L, 2, 3 )-lua_rawgeti( L, 2, 2 );
+  if( lua_istable( L,2)){
+   for( i = 0; i < 3; i ++ )
+     lua_rawgeti( L, 2, i + 1 );
+    if(lua_type(L,-1)== LUA_TNUMBER)
+          sort[i]=lua_pop( L, 1 );
+     }
+     comp1=sort[1]-sort[0];
+     comp2=sort[2]-sort[1];
     if (comp1>comp2)
-        a=lua_rawgeti( L, 2, 2 );
+        a=sort[1];
     else if(comp2>comp1)
-        a=lua_rawgeti( L, 2, 3 );
+        a=sort[2];
     else if(comp1!=0 && comp2!=0)
-           a=lua_rawgeti( L, 2, 3);
-	  // printf("check values: %d",lua_rawgeti( L, 2, 3));
+           a=sort[2];
    }
     for (int i = 0; i <3; ++i)
     if(org[i]==a)
