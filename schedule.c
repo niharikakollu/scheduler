@@ -59,9 +59,10 @@ static int calib_alg(lua_State* L){
     for(int i=pos;i>0;i--)
     org[i]=org[i-1];
     org[0]=(org[2]+org[1])/2.0;
+    lua_newtable( L );
    for (int i = 0; i <3;i++){
     lua_pushnumber(L, (lua_Number)org[i]);
-     //lua_pop( L, 1 );
+     lua_pop( L, 1 );
      lua_rawseti( L,-2, i + 1 );
    }
    return 1;
