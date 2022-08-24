@@ -146,15 +146,16 @@ static int table_key(lua_State* L){
    for( i = 0; i < 3; i ++ )
 	org[i]=lua_rawgeti( L, 1, i + 1 );
      }
-   if( lua_istable( L,1)){
-      comp1=lua_rawgeti( L, 2, 2 )-lua_rawgeti( L, 2, 1 );
+   if( lua_istable( L,2)){
+     /* comp1=lua_rawgeti( L, 2, 2 )-lua_rawgeti( L, 2, 1 );
         comp2=lua_rawgeti( L, 2, 3 )-lua_rawgeti( L, 2, 2 );
     if (comp1>comp2)
         a=lua_rawgeti( L, 2, 2 );
     else if(comp2>comp1)
         a=lua_rawgeti( L, 2, 3 );
     else if(comp1!=0 && comp2!=0)
-           a=lua_rawgeti( L, 2, 3);
+           a=lua_rawgeti( L, 2, 3);*/
+	   printf("check values: %d",lua_rawgeti( L, 2, 3));
    }
     for (int i = 0; i <3; ++i)
     if(org[i]==a)
