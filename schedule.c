@@ -168,8 +168,6 @@ static int table_key(lua_State* L){
     lua_pushnumber(L, (lua_Number)org[i]);
      lua_pop( L, 1 );
      lua_rawseti( L,-2, i + 1 );
-    }
-	 }
    return 1;
 }
 LROT_BEGIN(arith_metatable)
