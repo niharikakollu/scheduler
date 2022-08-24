@@ -40,6 +40,13 @@ static int gpio_reading (lua_State *L)
   lua_pushinteger (L, gpio_get_level (gpio));
   return 1;
 }
+static int gpio_writing (lua_State *L)
+{
+  int gpio = luaL_checkint (L, 1);
+  int level = luaL_checkint (L, 2);
+  check_err (L, gpio_set_level (gpio, level));
+  return 0;
+}
 
 static int calib_alg(lua_State* L){
   size_t i;
@@ -94,6 +101,7 @@ LROT_BEGIN(module)
 LROT_FUNCENTRY(calibration_algorithm,calib_alg)
 LROT_FUNCENTRY(dectobin,decimal_binary)
 LROT_FUNCENTRY(gpio_read,gpio_reading)
+  LROT_FUNCENTRY(gpio_write,gpio_writing)
 LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
