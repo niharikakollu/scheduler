@@ -65,7 +65,7 @@ static int calib_alg(lua_State* L){
    // lua_pushnumber(L, (lua_Number)org[i]);
     // lua_pop( L, 1 );
      //lua_rawseti( L,-2, i + 1 );
-     printf("%d  ",org[i]);
+     printf("%f  ",org[i]);
    }
    return 1;
 }
