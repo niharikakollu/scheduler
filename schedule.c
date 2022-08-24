@@ -45,7 +45,6 @@ static int decimal_binary(lua_State* L){
         a=sort[2];
     else if(comp1!=0 && comp2!=0)
            a=sort[2];
-   }
     for (int i = 0; i <3; ++i)
     if(org[i]==a)
     {
