@@ -48,6 +48,23 @@ static int gpio_writing (lua_State *L)
   return 0;
 }
 
+static int find_match_array(lua_State *L){
+  int  val=luaL_checknumber(L, 2);
+  if(lua_istable(L,1)){
+    size_t datalen = lua_objlen( L,1);
+    int flg=0;
+    for(int i=0;i<datalen;i++){
+      lua_rawgeti(L,1,i+1);
+      if(val==luaL_checknumber(L,-1)){
+       flg=i+1;
+      break;
+    }
+     lua_pop(L,1);
+    }
+    lua_pushinteger(L,(lua_Integer)flg);
+  }
+  return 1;
+ }
 static int calib_alg(lua_State* L){
   size_t i;
   float org[3],sort[3],comp1,comp2,a=0.0;
@@ -101,7 +118,8 @@ LROT_BEGIN(module)
 LROT_FUNCENTRY(calibration_algorithm,calib_alg)
 LROT_FUNCENTRY(dectobin,decimal_binary)
 LROT_FUNCENTRY(gpio_read,gpio_reading)
-  LROT_FUNCENTRY(gpio_write,gpio_writing)
+LROT_FUNCENTRY(gpio_write,gpio_writing)
+LROT_FUNCENTRY(find_match,find_match_array)
 LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
