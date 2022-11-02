@@ -82,6 +82,7 @@ static int app_main()
             }
         vTaskDelay(1000 / portTICK_RATE_MS);
         }
+    return 1;
 }
 
 static int check_err (lua_State *L, esp_err_t err)
