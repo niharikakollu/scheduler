@@ -10,7 +10,7 @@
 #include "lora.h"
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 
-static void lora_initialise(lua_state *L){
+static void lora_initialise(lua_State *L){
 	lora_init();
 	long freq=luaL_checknumber(L,1);
 	freq=freq*1e6;
@@ -25,14 +25,14 @@ static void lora_initialise(lua_state *L){
 	return 0;
 }
 
-static void lora_sending(lua_state *L){
+static void lora_sending(lua_State *L){
 	int size=luaL_checknumber(L,1);
 	char *str = luaL_checkstring( L,2 );
 	lora_send_packet((uint8_t*)str, size);
 	return 0;
 }
 
-static void lora_receiving(lua_state *L){
+static void lora_receiving(lua_State *L){
 	int x
 	//int size=luaL_checknumber(L,1);
 	//char buf[size];
