@@ -22,12 +22,14 @@ static void lora_initialise(lua_state *L){
 	if (bw>0)
 		lora_set_bandwidth(bw);
 	lora_enable_crc();
+	return 0;
 }
 
 static void lora_send(lua_state *L){
 	int size=luaL_checknumber(L,1);
 	char *str = luaL_checkstring( L,2 );
 	lora_send_packet((uint8_t*)str, size);
+	return 0;
 }
 
 static void lora_rec(lua_state *L){
@@ -42,6 +44,7 @@ static void lora_rec(lua_state *L){
          lora_receive();
       }
 	lua_pushstring(L,buf);
+	return 0;
 }
 
 LROT_BEGIN(arith_metatable)
