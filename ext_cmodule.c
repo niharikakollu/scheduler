@@ -25,14 +25,14 @@ static void lora_initialise(lua_state *L){
 	return 0;
 }
 
-static void lora_send(lua_state *L){
+static void lora_sending(lua_state *L){
 	int size=luaL_checknumber(L,1);
 	char *str = luaL_checkstring( L,2 );
 	lora_send_packet((uint8_t*)str, size);
 	return 0;
 }
 
-static void lora_rec(lua_state *L){
+static void lora_receiving(lua_state *L){
 	int x
 	//int size=luaL_checknumber(L,1);
 	//char buf[size];
@@ -52,8 +52,8 @@ LROT_END(arith_metatable, NULL, 0)
 
 LROT_BEGIN(module)
 LROT_FUNCENTRY(lora_init,lora_initialise)
-LROT_FUNCENTRY(lora_trasmit,lora_send)
-LROT_FUNCENTRY(lora_receive,lora_rec)
+LROT_FUNCENTRY(lora_transmit,lora_sending)
+LROT_FUNCENTRY(lora_receive,lora_receiving)
 LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
