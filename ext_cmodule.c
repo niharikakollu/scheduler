@@ -8,6 +8,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "lora.h"
+#include "esp_system.h"
+#include "esp_spi_flash.h"
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 
 static void lora_initialise(lua_State *L){
