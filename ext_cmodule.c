@@ -28,7 +28,7 @@ static void lora_initialise(lua_State *L){
 static void lora_sending(lua_State *L){
 	int size=luaL_checknumber(L,1);
 	char *str = luaL_checkstring( L,2 );
-	lora_send_packet((uint8_t)str, size);
+	lora_send_packet((uint8_t*)str, size);
 	return 0;
 }
 
@@ -38,7 +38,7 @@ static void lora_receiving(lua_State *L){
 	char *buf;
 	lora_receive();    // put into receive mode
 	while(lora_received()) {
-         buf= lora_receive_packet(buf, sizeof(buf));
+         buf= lora_receive_packet((uint8_t*) buf, sizeof(buf));
          printf("Received: %s\n", buf);
          lora_receive();
       }
