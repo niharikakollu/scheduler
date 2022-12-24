@@ -39,7 +39,7 @@ static void lora_receiving(lua_State *L){
 	lora_receive();    // put into receive mode
 	while(lora_received()) {
          x= lora_receive_packet((uint8_t*) buf, sizeof(buf));
-         printf("Received: %s\n", buf);
+         printf("Received: %s, length: %d\n", buf,x);
          lora_receive();
       }
 	lua_pushstring(L,buf);
