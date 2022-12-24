@@ -36,11 +36,10 @@ static void lora_receiving(lua_State *L){
 	int x;
 	int size=0;
 	size=luaL_checknumber(L,1);
-	char buf[size];
+	char *buf;
 	lora_receive();    // put into receive mode
 	while(lora_received()) {
-         x = lora_receive_packet(buf, sizeof(buf));
-         buf[x] = 0;
+         buf= lora_receive_packet(buf, sizeof(buf));
          printf("Received: %s\n", buf);
          lora_receive();
       }
