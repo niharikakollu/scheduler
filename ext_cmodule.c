@@ -11,16 +11,21 @@
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 
 static void lora_initialise(lua_State *L){
+	printf("check1");
 	lora_init();
+	printf("check2");
 	long freq=luaL_checknumber(L,1);
 	freq=freq*1e6;
 	lora_set_frequency(freq);
+	printf("check3");
 	int sf=luaL_checkinteger(L,2);
 	if (sf>0)
 		lora_set_spreading_factor(sf);
+	printf("check4");
 	long bw=luaL_checkinteger(L,3);
 	if (bw>0)
 		lora_set_bandwidth(bw);
+	printf("check5");
 	lora_enable_crc();
 	return 0;
 }
@@ -28,7 +33,9 @@ static void lora_initialise(lua_State *L){
 static void lora_sending(lua_State *L){
 	int size=luaL_checknumber(L,1);
 	char *str = luaL_checkstring( L,2 );
+	printf("check6");
 	lora_send_packet((uint8_t*)str, size);
+	printf("check7");
 	return 0;
 }
 
@@ -36,11 +43,13 @@ static void lora_receiving(lua_State *L){
 	int size=0,x=0;
 	size=luaL_checknumber(L,1);
 	char buf[size];
+	printf("check8");
 	lora_receive();    // put into receive mode
+	printf("check9");
 	while(lora_received()) {
          x= lora_receive_packet((uint8_t*) buf, sizeof(buf));
          printf("Received: %s, length: %d\n", buf,x);
-         lora_receive();
+         //lora_receive();
       }
 	lua_pushstring(L,buf);
 	return 1;
