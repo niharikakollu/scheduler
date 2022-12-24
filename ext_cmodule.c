@@ -45,7 +45,7 @@ static void lora_receiving(lua_State *L){
 	char buf[size];
 	printf("check8");
 	lora_receive();    // put into receive mode
-	while(lora_received()) {
+	while(available()) {
 	 printf("check9");
          x= lora_receive_packet((uint8_t*) buf, sizeof(buf));
          printf("Received: %s, length: %d\n", buf,x);
