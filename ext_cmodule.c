@@ -18,7 +18,7 @@ static void lora_initialise(lua_State *L){
 	freq=freq*1e6;
 	lora_set_frequency(freq);
 	printf("check3");
-	int sf=luaL_checkinteger(L,2);
+	/*int sf=luaL_checkinteger(L,2);
 	if (sf>0)
 		lora_set_spreading_factor(sf);
 	printf("check4");
@@ -26,7 +26,7 @@ static void lora_initialise(lua_State *L){
 	if (bw>0)
 		lora_set_bandwidth(bw);
 	printf("check5");
-	lora_enable_crc();
+	lora_enable_crc();*/
 	return 0;
 }
 
